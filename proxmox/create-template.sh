@@ -89,15 +89,15 @@ rm $NEW_FILE_NAME
 
 ## Ubuntu
 # 20.04 (Focal Fossa)
-# create_template 8000 "ubuntu-server-focal-cloud" "ubuntu-20.04-server-cloudimg-amd64.img" "https://cloud-images.ubuntu.com/releases/focal/release/ubuntu-20.04-server-cloudimg-amd64.img"
+# ./create-template.sh 8000 "ubuntu-server-focal-cloud" "https://cloud-images.ubuntu.com/releases/focal/release/ubuntu-20.04-server-cloudimg-amd64.img"
 
 # 22.04 (Jammy Jellyfish)
-# create_template 8001 "ubuntu-server-jammy-cloud" "ubuntu-22.04-server-cloudimg-amd64.img" "https://cloud-images.ubuntu.com/releases/22.04/release/ubuntu-22.04-server-cloudimg-amd64.img"
+# ./create-template.sh 8001 "ubuntu-server-jammy-cloud" "https://cloud-images.ubuntu.com/releases/22.04/release/ubuntu-22.04-server-cloudimg-amd64.img"
 
 ## Debian
 # Buster (10)
-# create_template 8002 "debian-server-buster-cloud" "debian-10-genericcloud-amd64.qcow2" "https://cloud.debian.org/images/cloud/buster/latest/debian-10-genericcloud-amd64.qcow2"
+# ./create-template.sh 8002 "debian-server-buster-cloud" "https://cloud.debian.org/images/cloud/buster/latest/debian-10-genericcloud-amd64.qcow2"
 
 # Bullseye (11)
-# wget "https://cloud.debian.org/images/cloud/bullseye/latest/debian-11-genericcloud-amd64.qcow2"
-# create_template 8003 "debian-server-bullseye-cloud" "debian-11-genericcloud-amd64.qcow2" "https://cloud.debian.org/images/cloud/bullseye/latest/debian-11-genericcloud-amd64.qcow2"
+# wget 
+# ./create-template.sh 8003 "debian-server-bullseye-cloud" "https://cloud.debian.org/images/cloud/bullseye/latest/debian-11-genericcloud-amd64.qcow2"
