@@ -12,6 +12,7 @@ VM_ID=$1
 VM_NAME=$2
 FILE_URL=$3
 FILE_NAME=$(basename "$3")
+NEW_FILE_NAME=${FILE_NAME%.*}.qcow2
 
 USERNAME=sysadmin
 SSH_KEY_FILE=/root/id_default.pub
@@ -28,6 +29,7 @@ echo "VM_ID:           ${VM_ID}"
 echo "VM_NAME:         ${VM_NAME}"
 echo "FILE_URL:        ${FILE_URL}"
 echo "FILE_NAME:       ${FILE_NAME}"
+echo "NEW_FILE_NAME:   ${NEW_FILE_NAME}"
 echo "USERNAME:        ${USERNAME}"
 echo "SSH_KEY_FILE:    ${SSH_KEY_FILE}"
 echo "MEM:             ${MEM}"
@@ -37,7 +39,7 @@ echo "NET_BRIDGE:      ${NET_BRIDGE}"
 echo "DISK_STOR:       ${DISK_STOR}"
 
 # Download the image, renaming it to the intended img name (qcow2)
-wget -O ${FILE_NAME} ${FILE_URL}
+wget -O ${NEW_FILE_NAME} ${FILE_URL}
 
 # Ubuntu cloud img doesn't include qemu-guest-agent required for packer to get IP details from proxmox
 # Add any additional packages you want installed in the template
@@ -82,9 +84,6 @@ wget -O ${FILE_NAME} ${FILE_URL}
 
 #Remove file when done
 #rm $3
-
-
-create_template
 
 # Example Usage
 
