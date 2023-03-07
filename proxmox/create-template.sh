@@ -15,7 +15,7 @@ FILE_NAME=$(basename "$3")
 NEW_FILE_NAME=${FILE_NAME%.*}.qcow2
 
 USERNAME=sysadmin
-SSH_KEY_FILE=/root/id_default.pub
+SSH_KEY_FILE=/root/.ssh/id_default.pub
 
 MEM=2048
 CORES=2
@@ -46,8 +46,7 @@ wget -O ${NEW_FILE_NAME} ${FILE_URL}
 virt-customize --install qemu-guest-agent -a ${NEW_FILE_NAME}
 
 # Create the new VM
-# qm create $1 --name $VM_NAME --ostype l26
-qm create $VM_ID --name $VM_NAME --memory ${MEM} --net0 virtio,bridge=${NET_BRIDGE}
+qm create $VM_ID --name $VM_NAME --ostype l26 --memory ${MEM} --net0 virtio,bridge=${NET_BRIDGE}
 
 # Set cores and CPU type
 qm set $VM_ID --cores ${CORES} --cpu host
