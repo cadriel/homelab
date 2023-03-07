@@ -22,68 +22,69 @@ DISK_SIZE=32G
 NET_BRIDGE=vmbr0
 DISK_STOR=data
 
-function create_template() {
-    # Print config
-    echo "Creating template ${VM_NAME} (${VM_ID}) from ${FILE_NAME} (${FILE_URL})"
-    echo "VM_ID:           ${VM_ID}"
-    echo "VM_NAME:         ${VM_NAME}"
-    echo "FILE_URL:        ${FILE_URL}"
-    echo "FILE_NAME:       ${FILE_NAME}"
-    echo "USERNAME:        ${USERNAME}"
-    echo "SSH_KEY_FILE:    ${SSH_KEY_FILE}"
-    echo "MEM:             ${MEM}"
-    echo "CORES:           ${CORES}"
-    echo "DISK_SIZE:       ${DISK_SIZE}"
-    echo "NET_BRIDGE:      ${NET_BRIDGE}"
-    echo "DISK_STOR:       ${DISK_STOR}"
+# Print config
+echo "Creating template ${VM_NAME} (${VM_ID}) from ${FILE_NAME} (${FILE_URL})"
+echo "VM_ID:           ${VM_ID}"
+echo "VM_NAME:         ${VM_NAME}"
+echo "FILE_URL:        ${FILE_URL}"
+echo "FILE_NAME:       ${FILE_NAME}"
+echo "USERNAME:        ${USERNAME}"
+echo "SSH_KEY_FILE:    ${SSH_KEY_FILE}"
+echo "MEM:             ${MEM}"
+echo "CORES:           ${CORES}"
+echo "DISK_SIZE:       ${DISK_SIZE}"
+echo "NET_BRIDGE:      ${NET_BRIDGE}"
+echo "DISK_STOR:       ${DISK_STOR}"
 
-    # Download the image, renaming it to the intended img name (qcow2)
-    wget -O ${FILE_NAME} ${FILE_URL}
+# Download the image, renaming it to the intended img name (qcow2)
+wget -O ${FILE_NAME} ${FILE_URL}
 
-    # Ubuntu cloud img doesn't include qemu-guest-agent required for packer to get IP details from proxmox
-    # Add any additional packages you want installed in the template
-    #virt-customize --install qemu-guest-agent -a ${IMG_NAME}
+# Ubuntu cloud img doesn't include qemu-guest-agent required for packer to get IP details from proxmox
+# Add any additional packages you want installed in the template
+#virt-customize --install qemu-guest-agent -a ${IMG_NAME}
 
-    # Create the new VM
-    # qm create $1 --name $2 --ostype l26
-    #qm create $1 --name $2 --memory ${MEM} --net0 virtio,bridge=${NET_BRIDGE}
+# Create the new VM
+# qm create $1 --name $2 --ostype l26
+#qm create $1 --name $2 --memory ${MEM} --net0 virtio,bridge=${NET_BRIDGE}
 
-    # Set cores and CPU type
-    #qm set $1 --cores ${CORES} --cpu host
+# Set cores and CPU type
+#qm set $1 --cores ${CORES} --cpu host
 
-    # Set display to serial
-    #qm set $1 --serial0 socket --vga serial0
+# Set display to serial
+#qm set $1 --serial0 socket --vga serial0
 
-    # Set boot device to new file
-    #qm set $1 --scsi0 ${DISK_STOR}:0,import-from="$(pwd)/$3",discard=on
+# Set boot device to new file
+#qm set $1 --scsi0 ${DISK_STOR}:0,import-from="$(pwd)/$3",discard=on
 
-    # Set scsi hardware as default boot disk using virtio scsi single
-    #qm set $1 --boot order=scsi0 --scsihw virtio-scsi-single
+# Set scsi hardware as default boot disk using virtio scsi single
+#qm set $1 --boot order=scsi0 --scsihw virtio-scsi-single
 
-    # Enable Qemu guest agent
-    #qm set $1 --agent enabled=1,fstrim_cloned_disks=1
+# Enable Qemu guest agent
+#qm set $1 --agent enabled=1,fstrim_cloned_disks=1
 
-    # Add cloud-init device
-    #qm set $1 --ide2 ${DISK_STOR}:cloudinit
+# Add cloud-init device
+#qm set $1 --ide2 ${DISK_STOR}:cloudinit
 
-    # Set ip config
-    #qm set $1 --ipconfig0 "ip6=auto,ip=dhcp"
+# Set ip config
+#qm set $1 --ipconfig0 "ip6=auto,ip=dhcp"
 
-    # Import the ssh keyfile
-    #qm set $1 --sshkeys ${SSH_KEY_FILE}
+# Import the ssh keyfile
+#qm set $1 --sshkeys ${SSH_KEY_FILE}
 
-    # Add the user
-    #qm set $1 --ciuser ${USERNAME}
+# Add the user
+#qm set $1 --ciuser ${USERNAME}
 
-    # Resize the disk
-    #qm disk resize $1 scsi0 ${DISK_SIZE}
+# Resize the disk
+#qm disk resize $1 scsi0 ${DISK_SIZE}
 
-    # Convert to Template
-    #qm template $1
+# Convert to Template
+#qm template $1
 
-    #Remove file when done
-    #rm $3
-}
+#Remove file when done
+#rm $3
+
+
+create_template
 
 # Example Usage
 
