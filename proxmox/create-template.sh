@@ -43,7 +43,7 @@ wget -O ${NEW_FILE_NAME} ${FILE_URL}
 
 # Ubuntu cloud img doesn't include qemu-guest-agent required for packer to get IP details from proxmox
 # Add any additional packages you want installed in the template
-virt-customize --install qemu-guest-agent -a ${IMG_NAME}
+virt-customize --install qemu-guest-agent -a ${NEW_FILE_NAME}
 
 # Create the new VM
 # qm create $1 --name $VM_NAME --ostype l26
@@ -59,31 +59,31 @@ qm set $VM_ID --serial0 socket --vga serial0
 qm set $VM_ID --scsi0 ${DISK_STOR}:0,import-from="$(pwd)/$NEW_FILE_NAME",discard=on
 
 # Set scsi hardware as default boot disk using virtio scsi single
-#qm set $VM_ID --boot order=scsi0 --scsihw virtio-scsi-single
+qm set $VM_ID --boot order=scsi0 --scsihw virtio-scsi-single
 
 # Enable Qemu guest agent
-#qm set $VM_ID --agent enabled=1,fstrim_cloned_disks=1
+qm set $VM_ID --agent enabled=1,fstrim_cloned_disks=1
 
 # Add cloud-init device
-#qm set $VM_ID --ide2 ${DISK_STOR}:cloudinit
+qm set $VM_ID --ide2 ${DISK_STOR}:cloudinit
 
 # Set ip config
-#qm set $VM_ID --ipconfig0 "ip6=auto,ip=dhcp"
+qm set $VM_ID --ipconfig0 "ip6=auto,ip=dhcp"
 
 # Import the ssh keyfile
-#qm set $VM_ID --sshkeys ${SSH_KEY_FILE}
+qm set $VM_ID --sshkeys ${SSH_KEY_FILE}
 
 # Add the user
-#qm set $VM_ID --ciuser ${USERNAME}
+qm set $VM_ID --ciuser ${USERNAME}
 
 # Resize the disk
-#qm disk resize $VM_ID scsi0 ${DISK_SIZE}
+qm disk resize $VM_ID scsi0 ${DISK_SIZE}
 
 # Convert to Template
-#qm template $VM_ID
+qm template $VM_ID
 
 #Remove file when done
-#rm $3
+rm $NEW_FILE_NAME
 
 # Example Usage
 
