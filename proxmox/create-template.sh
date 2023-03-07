@@ -41,8 +41,9 @@ echo "DISK_STOR:       ${DISK_STOR}"
 # Download the image, renaming it to the intended img name (qcow2)
 wget -O ${NEW_FILE_NAME} ${FILE_URL}
 
-# Ubuntu cloud img doesn't include qemu-guest-agent required for packer to get IP details from proxmox
 # Add any additional packages you want installed in the template
+# This won't work because it'll set the machineId and random seed, of which
+# we don't want for a template.
 # virt-customize --install qemu-guest-agent -a ${NEW_FILE_NAME}
 
 # Create the new VM
