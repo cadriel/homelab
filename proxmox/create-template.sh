@@ -44,7 +44,7 @@ wget -O ${NEW_FILE_NAME} ${FILE_URL}
 # Add any additional packages you want installed in the template
 # This won't work because it'll set the machineId and random seed, of which
 # we don't want for a template.
-# virt-customize --install qemu-guest-agent -a ${NEW_FILE_NAME}
+virt-customize --install qemu-guest-agent -a ${NEW_FILE_NAME}
 
 # Create the new VM
 qm create $VM_ID --name $VM_NAME --ostype l26 --memory ${MEM} --net0 virtio,bridge=${NET_BRIDGE}
